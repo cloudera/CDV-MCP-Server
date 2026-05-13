@@ -84,18 +84,6 @@ A [Model Context Protocol](https://modelcontextprotocol.io) server that exposes 
 | `trellis-groupedbars` | Grouped bars — one SUM measure, split by color dimension | Use `"shelf": "color_shelf"` for grouping |
 | `pie` | Pie chart — SUM measure by dimension | Dimension auto-placed on `color_shelf` |
 
-All other CDV chart types require configuration in **CDV's interactive builder** and are blocked here to prevent broken visuals.
-
-**What is blocked and why:**
-
-| Pattern | Error returned | Alternative |
-|---|---|---|
-| `count` aggregate | CDV generates `count([col])` that Impala rejects | Use `sum` on a numeric column |
-| `trellis-lines`, `scatter`, etc. | Unsupported visual type | Use CDV's builder; use `query_dataapi` for the data |
-| Columns starting with `avg_`, `sum_`, etc. as measure targets | CDV tokenizer bug produces `avg([avg_col])` | Choose a different column |
-| Date/timestamp columns as dimensions | CDV bracket conversion fails for TIMESTAMP | Use CDV's builder for time-series |
-| `filters` parameter | `WHERE ([col])` bracket SQL Impala rejects | Use `query_dataapi` for filtered queries; add filters in CDV's builder |
-| Deleting dashboards | Cascade-deletes ALL linked chart visuals | Record visual IDs first; use `delete_visual` carefully |
 
 ### Connections
 | Tool | Description |
@@ -107,11 +95,6 @@ All other CDV chart types require configuration in **CDV's interactive builder**
 | `delete_connection(object_id)` | Delete a connection by ID |
 | `export_connection(object_id)` | Export a connection definition by ID |
 
-### Migrations
-| Tool | Description |
-|------|-------------|
-| `export_migration` | Export all CDV artifacts as a migration bundle |
-| `import_migration(body)` | Import a CDV migration bundle |
 
 ### Data API
 | Tool | Description |
@@ -156,7 +139,7 @@ The screenshots below show the CDV MCP Server being used inside **Cloudera Agent
 4. Called `create_smart_visual` to build a stacked bar chart in CDV
 5. Called `create_dashboard` to make it visible in the Logistics MCP Demo workspace
 
-**Prompt:** *"Which suppliers are driving the most urgent spend? Build a stacked bar chart in Data viz."*
+**Prompt:** *"Which suppliers are driving the most urgent spend? Build a stacked bar chart in Data Viz."*
 
 **Step 1 — Agent plans the visualization**
 
