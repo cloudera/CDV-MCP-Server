@@ -457,7 +457,7 @@ def create_dataset(body: dict) -> str:
     already exists.  Always get explicit user confirmation before creating a new dataset.
 
     body fields: dc_id (int), name (str), type (str), detail (str, e.g. schema.table),
-    description (str), info (object), lvname (str), settings (object).
+    description (str), info (list), lvname (str), settings (object).
     """
     return datasets_tools.create_dataset(body)
 
